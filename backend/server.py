@@ -312,30 +312,45 @@ async def get_agent_calls(agent_id: str, request: Request, limit: int = 20):
 @api_router.get("/analytics/realtime")
 async def get_realtime_analytics(request: Request):
     await get_current_user(request)
-    active = await db.calls.count_documents({"status": {"$in": ["active", "ringing", "on_hold"]}})
-    active_calls = await db.calls.find(
-        {"status": "active"},
-        {"_id": 0, "ai_summary.overall_sentiment": 1, "duration_seconds": 1, "health_score": 1}
-    ).to_list(100)
+    today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
 
-    sentiments = [c.get("ai_summary", {}).get("overall_sentiment", 0) for c in active_calls]
-    avg_sentiment = sum(sentiments) / len(sentiments) if sentiments else 0
-    durations = [c.get("duration_seconds", 0) for c in active_calls]
-    longest = max(durations) if durations else 0
+    # Single aggregation for active call metrics
+    pipeline = [
+        {"$match": {"status": {"$in": ["active", "ringing", "on_hold"]}}},
+        {"$group": {
+            "_id": None,
+            "count": {"$sum": 1},
+            "avg_sentiment": {"$avg": "$ai_summary.overall_sentiment"},
+            "max_duration": {"$max": "$duration_seconds"},
+            "avg_health": {"$avg": "$health_score"},
+        }}
+    ]
+    agg_result = await db.calls.aggregate(pipeline).to_list(1)
+    active_data = agg_result[0] if agg_result else {"count": 0, "avg_sentiment": 0, "max_duration": 0, "avg_health": 50}
+
+    # Single aggregation for today's call counts
+    today_pipeline = [
+        {"$match": {"started_at": {"$gte": today_start}}},
+        {"$facet": {
+            "total": [{"$count": "n"}],
+            "ended": [{"$match": {"status": "ended"}}, {"$count": "n"}],
+        }}
+    ]
+    today_result = await db.calls.aggregate(today_pipeline).to_list(1)
+    today_data = today_result[0] if today_result else {"total": [], "ended": []}
+    total_today = today_data["total"][0]["n"] if today_data["total"] else 0
+    ended_today = today_data["ended"][0]["n"] if today_data["ended"] else 0
 
     alert_count = await db.alerts.count_documents({"status": "active"})
-    today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
-    total_today = await db.calls.count_documents({"started_at": {"$gte": today_start}})
-    ended_today = await db.calls.count_documents({"status": "ended", "started_at": {"$gte": today_start}})
 
     return {
-        "active_calls": active,
-        "avg_sentiment": round(avg_sentiment, 2),
+        "active_calls": active_data["count"],
+        "avg_sentiment": round(active_data["avg_sentiment"] or 0, 2),
         "alerts_count": alert_count,
-        "longest_call": longest,
+        "longest_call": active_data["max_duration"] or 0,
         "total_calls_today": total_today,
         "resolved_today": ended_today,
-        "avg_health_score": round(sum(c.get("health_score", 50) for c in active_calls) / len(active_calls), 1) if active_calls else 50,
+        "avg_health_score": round(active_data["avg_health"] or 50, 1),
     }
 
 
