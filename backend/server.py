@@ -358,22 +358,30 @@ async def get_realtime_analytics(request: Request):
 async def get_hourly_analytics(request: Request):
     await get_current_user(request)
     now = datetime.now(timezone.utc)
+    start_of_day = now.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
+
+    # Single aggregation for all hourly data
+    pipeline = [
+        {"$match": {"started_at": {"$gte": start_of_day}}},
+        {"$addFields": {"hour_val": {"$hour": {"$dateFromString": {"dateString": "$started_at"}}}}},
+        {"$group": {
+            "_id": "$hour_val",
+            "calls": {"$sum": 1},
+            "avg_sentiment": {"$avg": "$ai_summary.overall_sentiment"},
+        }},
+        {"$sort": {"_id": 1}},
+    ]
+    results = await db.calls.aggregate(pipeline).to_list(24)
+    hour_map = {r["_id"]: r for r in results}
+    current_hour = now.hour
     hours = []
-    for i in range(24):
-        hour_start = now.replace(hour=i, minute=0, second=0, microsecond=0)
-        hour_end = hour_start + timedelta(hours=1)
-        if hour_start > now:
-            break
-        count = await db.calls.count_documents({
-            "started_at": {"$gte": hour_start.isoformat(), "$lt": hour_end.isoformat()}
+    for i in range(current_hour + 1):
+        data = hour_map.get(i, {})
+        hours.append({
+            "hour": i,
+            "calls": data.get("calls", 0),
+            "avg_sentiment": round(data.get("avg_sentiment", 0) or 0, 2),
         })
-        calls_in_hour = await db.calls.find(
-            {"started_at": {"$gte": hour_start.isoformat(), "$lt": hour_end.isoformat()}},
-            {"_id": 0, "ai_summary.overall_sentiment": 1}
-        ).to_list(200)
-        sents = [c.get("ai_summary", {}).get("overall_sentiment", 0) for c in calls_in_hour]
-        avg_s = sum(sents) / len(sents) if sents else 0
-        hours.append({"hour": i, "calls": count, "avg_sentiment": round(avg_s, 2)})
     return hours
 
 
