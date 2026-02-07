@@ -19,7 +19,7 @@ export default function LoginPage() {
             <div className="w-12 h-12 rounded-lg bg-[#3B82F6] flex items-center justify-center">
               <Phone className="w-6 h-6 text-white" />
             </div>
-            <h1 className="font-heading text-3xl font-black tracking-tight text-white">NEXUS</h1>
+            <h1 className="font-heading text-3xl font-black tracking-tight text-white">CallPulse</h1>
           </div>
           <h2 className="font-heading text-4xl font-bold tracking-tight text-white mb-4">
             Contact Center<br />Intelligence Platform
