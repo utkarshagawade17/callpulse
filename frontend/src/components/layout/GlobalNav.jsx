@@ -38,7 +38,7 @@ export default function GlobalNav() {
             <Phone className="w-4 h-4 text-white" />
           </div>
           <div>
-            <h1 className="font-heading text-lg font-black tracking-tight text-white">NEXUS</h1>
+            <h1 className="font-heading text-lg font-black tracking-tight text-white">CallPulse</h1>
             <div className="flex items-center gap-1.5">
               <Radio className={`w-3 h-3 ${wsConnected ? 'text-emerald-400' : 'text-red-400'}`} />
               <span className="text-[10px] text-slate-500 uppercase tracking-widest">
