@@ -513,7 +513,7 @@ class SimulationEngine:
         health = max(0, min(100, int(50 + avg_sentiment * 50)))
 
         await self.db.calls.update_one(
-            {"call_id": call_id},
+            {"call_id": call_id, "status": "active"},
             {
                 "$push": {"transcript": transcript_entry},
                 "$set": {
