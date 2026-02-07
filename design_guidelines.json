@@ -1,0 +1,214 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "NOC-Voice-Analytics",
+      "archetype": "The Performance Pro (Dark Mode Variant)",
+      "vibe": "Tactical, Precision, Omniscient",
+      "emotional_tone": "Urgent, Professional, Controlled"
+    },
+    "typography": {
+      "fonts": {
+        "headings": {
+          "family": "Chivo, sans-serif",
+          "weights": ["400", "700", "900"],
+          "usage": "Headings, KPIs, Data Labels"
+        },
+        "body": {
+          "family": "IBM Plex Sans, sans-serif",
+          "weights": ["300", "400", "500", "600"],
+          "usage": "Transcripts, metadata, UI text"
+        },
+        "mono": {
+          "family": "JetBrains Mono, monospace",
+          "weights": ["400"],
+          "usage": "Call IDs, Timestamps, Code snippets"
+        }
+      },
+      "rules": {
+        "headings": "tracking-tight leading-none uppercase-labels",
+        "body": "leading-relaxed tracking-normal",
+        "scale": {
+          "h1": "text-4xl md:text-5xl font-black tracking-tighter",
+          "h2": "text-3xl font-bold tracking-tight",
+          "h3": "text-2xl font-bold",
+          "h4": "text-xl font-semibold uppercase tracking-widest text-slate-400",
+          "body": "text-base text-slate-300",
+          "small": "text-sm text-slate-400"
+        }
+      }
+    },
+    "colors": {
+      "theme": "dark",
+      "palette": {
+        "background": {
+          "main": "#0B1121",
+          "surface": "#151F32",
+          "surface_highlight": "#1E293B",
+          "overlay": "rgba(11, 17, 33, 0.8)"
+        },
+        "text": {
+          "primary": "#F8FAFC",
+          "secondary": "#94A3B8",
+          "tertiary": "#475569",
+          "inverse": "#0F172A"
+        },
+        "brand": {
+          "primary": "#3B82F6",
+          "primary_hover": "#2563EB",
+          "secondary": "#6366F1"
+        },
+        "functional": {
+          "success": "#10B981",
+          "warning": "#F59E0B",
+          "error": "#EF4444",
+          "info": "#0EA5E9",
+          "neutral": "#64748B"
+        },
+        "chart": {
+          "c1": "#3B82F6",
+          "c2": "#10B981",
+          "c3": "#F59E0B",
+          "c4": "#EF4444",
+          "c5": "#8B5CF6"
+        }
+      },
+      "gradients": {
+        "alert": "linear-gradient(90deg, rgba(239,68,68,0.2) 0%, rgba(239,68,68,0) 100%)",
+        "active_call": "linear-gradient(180deg, rgba(59,130,246,0.1) 0%, rgba(59,130,246,0) 100%)",
+        "glass": "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)"
+      }
+    },
+    "spacing": {
+      "base_unit": "4px",
+      "scale": {
+        "container_padding": "p-6 md:p-8",
+        "card_padding": "p-5",
+        "section_gap": "gap-8",
+        "item_gap": "gap-4"
+      }
+    },
+    "visual_enhancers": {
+      "borders": "border border-slate-700/50",
+      "radius": "rounded-none md:rounded-lg",
+      "shadows": {
+        "card": "shadow-[0_0_0_1px_rgba(255,255,255,0.05)]",
+        "glow": "box-shadow: 0 0 20px -5px var(--glow-color)",
+        "glass": "backdrop-blur-md bg-slate-900/70"
+      },
+      "effects": {
+        "pulse": "animate-pulse",
+        "shimmer": "relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent"
+      }
+    }
+  },
+  "layout_strategy": {
+    "type": "Bento Grid (High Density)",
+    "container": "max-w-[1920px] mx-auto",
+    "grid_cols": "grid-cols-1 md:grid-cols-12",
+    "z_index": {
+      "base": "z-0",
+      "dropdown": "z-40",
+      "sticky_nav": "z-50",
+      "modal": "z-50",
+      "toast": "z-50"
+    }
+  },
+  "components": [
+    {
+      "name": "GlobalNav",
+      "path": "/src/components/layout/GlobalNav.jsx",
+      "type": "Sidebar/TopBar Hybrid",
+      "description": "Persistent navigation. Sidebar on desktop, Topbar on mobile.",
+      "styles": "bg-background border-r border-border h-screen fixed left-0 top-0 w-64 hidden md:flex flex-col z-50"
+    },
+    {
+      "name": "LiveCallGrid",
+      "path": "/src/components/dashboard/LiveCallGrid.jsx",
+      "type": "Grid Container",
+      "description": "Main monitoring area. Responsive grid of active calls.",
+      "styles": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-6"
+    },
+    {
+      "name": "CallCard",
+      "path": "/src/components/dashboard/CallCard.jsx",
+      "type": "Card",
+      "description": "Individual call unit. Pulse effect if sentiment is low.",
+      "styles": "relative bg-card border border-border p-4 hover:border-primary/50 transition-colors group overflow-hidden"
+    },
+    {
+      "name": "AlertBanner",
+      "path": "/src/components/ui/AlertBanner.jsx",
+      "type": "Toast/Banner",
+      "description": "Sliding banner for critical alerts.",
+      "styles": "fixed top-4 right-4 z-50 w-96 bg-destructive/10 border border-destructive text-destructive-foreground p-4 backdrop-blur-md"
+    },
+    {
+      "name": "AgentStatusPanel",
+      "path": "/src/components/dashboard/AgentStatusPanel.jsx",
+      "type": "List/Panel",
+      "description": "Right sidebar or bottom panel showing agent states.",
+      "styles": "bg-card border-l border-border h-full p-4 overflow-y-auto"
+    }
+  ],
+  "assets": {
+    "icons": {
+      "library": "lucide-react",
+      "primary_set": ["Phone", "Mic", "AlertTriangle", "BarChart2", "Users", "Settings", "LogOut", "Search", "Filter"]
+    },
+    "images": {
+      "agents": [
+        {
+          "url": "https://images.unsplash.com/photo-1737575655055-e3967cbefd03?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwzfHxvZmZpY2UlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzcwNDQ1Njk0fDA&ixlib=rb-4.1.0&q=85",
+          "alt": "Agent Mike",
+          "category": "agent_avatar"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1752952952773-80378cefc23d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwyfHxvZmZpY2UlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzcwNDQ1Njk0fDA&ixlib=rb-4.1.0&q=85",
+          "alt": "Agent John",
+          "category": "agent_avatar"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1758518729459-235dcaadc611?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw0fHxvZmZpY2UlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzcwNDQ1Njk0fDA&ixlib=rb-4.1.0&q=85",
+          "alt": "Agent Sarah",
+          "category": "agent_avatar"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1762522921456-cdfe882d36c3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxfHxvZmZpY2UlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzcwNDQ1Njk0fDA&ixlib=rb-4.1.0&q=85",
+          "alt": "Agent Emily",
+          "category": "agent_avatar"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1715866558475-d2543c67a840?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzl8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBjdXN0b21lciUyMHNlcnZpY2UlMjBhZ2VudCUyMGhlYWRzaG90fGVufDB8fHx8MTc3MDQ0NTY4NXww&ixlib=rb-4.1.0&q=85",
+          "alt": "Supervisor/Agent",
+          "category": "user_avatar"
+        }
+      ],
+      "backgrounds": [
+        {
+          "url": "https://images.unsplash.com/photo-1760978632014-f799595497af?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHx0ZWNobm9sb2d5JTIwbmV0d29yayUyMGFic3RyYWN0JTIwYmFja2dyb3VuZCUyMGRhcmt8ZW58MHx8fHwxNzcwNDQ1Njg2fDA&ixlib=rb-4.1.0&q=85",
+          "alt": "Abstract Dot Matrix",
+          "category": "login_bg"
+        }
+      ]
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install 'lucide-react', 'recharts', 'date-fns', 'framer-motion', 'clsx', 'tailwind-merge' immediately.",
+    "Install '@fontsource/chivo' and '@fontsource/ibm-plex-sans' and import them in index.js",
+    "FORCE DARK MODE: Add 'dark' class to the html or body tag by default in index.html or App.jsx.",
+    "Override tailwind.config.js colors with the specific palette provided in this JSON.",
+    "Use 'recharts' for all analytics. Style them with the custom palette colors (no default blue/orange).",
+    "For the 'Live Call Waveform', use a CSS animation or a simple Recharts LineChart with mock real-time data.",
+    "Implement the 'Simulation Controls' as a drawer or a settings panel that modifies the global state context.",
+    "Use 'sonner' for notifications/toasts (Alerts).",
+    "Ensure the dashboard is responsive: Sidebar becomes a hamburger menu on mobile.",
+    "DATA-TESTID: Every interactive element (button, input, card) must have a data-testid attribute."
+  ],
+  "universal_guidelines": [
+    "Do not use gradients for backgrounds unless specified. Use solid dark colors for clarity.",
+    "Avoid 'Inter' font for headings. Use 'Chivo'.",
+    "Use 24px (p-6) or 32px (p-8) padding inside cards to avoid cramping.",
+    "All cards must have a subtle border (border-slate-700) to define edges in dark mode.",
+    "Never use pure black (#000000). Use #0B1121 or #0F172A."
+  ]
+}
