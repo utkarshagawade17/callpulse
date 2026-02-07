@@ -329,7 +329,7 @@ class SimulationEngine:
 
     async def _create_call(self, scenario=None):
         self.call_counter += 1
-        call_id = f"CALL-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{self.call_counter:03d}"
+        call_id = f"CALL-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
 
         if scenario is None:
             scenario = random.choice(SCENARIOS)
