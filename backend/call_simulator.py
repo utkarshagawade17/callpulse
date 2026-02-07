@@ -433,26 +433,36 @@ class SimulationEngine:
         await self.broadcast({"type": "call_ended", "data": {"call_id": call_id, "duration": duration}})
 
     async def _run_loop(self):
+        logger.info("Simulation loop starting...")
         try:
             while self.running:
                 call_ids = list(self.active_calls.keys())
                 for call_id in call_ids:
                     if not self.running:
                         break
-                    await self._progress_call(call_id)
+                    try:
+                        await self._progress_call(call_id)
+                    except Exception as e:
+                        logger.error(f"Error progressing call {call_id}: {e}", exc_info=True)
 
                 # Replace ended calls
                 while len(self.active_calls) < self.config["num_calls"] and self.running:
-                    await self._create_call()
+                    try:
+                        await self._create_call()
+                    except Exception as e:
+                        logger.error(f"Error creating call: {e}", exc_info=True)
                     await asyncio.sleep(0.3)
 
                 # Broadcast metrics
-                await self._broadcast_metrics()
+                try:
+                    await self._broadcast_metrics()
+                except Exception as e:
+                    logger.error(f"Error broadcasting metrics: {e}")
                 await asyncio.sleep(self.config.get("message_interval", 4))
         except asyncio.CancelledError:
-            pass
+            logger.info("Simulation loop cancelled")
         except Exception as e:
-            logger.error(f"Simulation loop error: {e}")
+            logger.error(f"Simulation loop fatal error: {e}", exc_info=True)
 
     async def _progress_call(self, call_id):
         if call_id not in self.active_calls:
