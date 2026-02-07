@@ -396,16 +396,15 @@ async def get_agent_analytics(request: Request):
 async def get_issue_analytics(request: Request):
     await get_current_user(request)
     today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
-    calls = await db.calls.find(
-        {"started_at": {"$gte": today_start}},
-        {"_id": 0, "ai_summary.primary_issue": 1, "ai_summary.risk_level": 1}
-    ).to_list(500)
 
-    issues = {}
-    for c in calls:
-        issue = c.get("ai_summary", {}).get("primary_issue", "Unknown")
-        issues[issue] = issues.get(issue, 0) + 1
-    return [{"issue": k, "count": v} for k, v in sorted(issues.items(), key=lambda x: -x[1])]
+    # Aggregation pipeline for issue counts
+    pipeline = [
+        {"$match": {"started_at": {"$gte": today_start}}},
+        {"$group": {"_id": "$ai_summary.primary_issue", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+    ]
+    results = await db.calls.aggregate(pipeline).to_list(100)
+    return [{"issue": r["_id"] or "Unknown", "count": r["count"]} for r in results]
 
 
 @api_router.post("/analytics/export")
