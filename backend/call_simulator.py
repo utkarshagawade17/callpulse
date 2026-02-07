@@ -584,14 +584,18 @@ class SimulationEngine:
 
     async def _broadcast_metrics(self):
         active_count = len(self.active_calls)
-        all_calls = await self.db.calls.find(
-            {"status": "active"}, {"_id": 0, "health_score": 1, "ai_summary.overall_sentiment": 1, "duration_seconds": 1}
-        ).to_list(100)
 
-        sentiments = [c.get("ai_summary", {}).get("overall_sentiment", 0) for c in all_calls]
-        avg_sentiment = sum(sentiments) / len(sentiments) if sentiments else 0
-        durations = [c.get("duration_seconds", 0) for c in all_calls]
-        max_duration = max(durations) if durations else 0
+        # Use aggregation instead of fetching all documents
+        pipeline = [
+            {"$match": {"status": "active"}},
+            {"$group": {
+                "_id": None,
+                "avg_sentiment": {"$avg": "$ai_summary.overall_sentiment"},
+                "max_duration": {"$max": "$duration_seconds"},
+            }}
+        ]
+        agg_result = await self.db.calls.aggregate(pipeline).to_list(1)
+        data = agg_result[0] if agg_result else {"avg_sentiment": 0, "max_duration": 0}
 
         active_alerts = await self.db.alerts.count_documents({"status": "active"})
 
@@ -599,8 +603,8 @@ class SimulationEngine:
             "type": "metrics_update",
             "data": {
                 "active_calls": active_count,
-                "avg_sentiment": round(avg_sentiment, 2),
+                "avg_sentiment": round(data.get("avg_sentiment") or 0, 2),
                 "alerts_count": active_alerts,
-                "longest_call": max_duration,
+                "longest_call": data.get("max_duration") or 0,
             }
         })
