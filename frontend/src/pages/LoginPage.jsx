@@ -54,7 +54,7 @@ export default function LoginPage() {
             <div className="w-10 h-10 rounded-lg bg-[#3B82F6] flex items-center justify-center">
               <Phone className="w-5 h-5 text-white" />
             </div>
-            <h1 className="font-heading text-2xl font-black tracking-tight text-white">NEXUS</h1>
+            <h1 className="font-heading text-2xl font-black tracking-tight text-white">CallPulse</h1>
           </div>
           <h3 className="font-heading text-2xl font-bold text-white mb-2">Welcome back</h3>
           <p className="text-slate-400 text-sm mb-8">Sign in to access the supervisor dashboard</p>
