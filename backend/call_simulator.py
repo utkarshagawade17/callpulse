@@ -379,7 +379,7 @@ class SimulationEngine:
             "_created_at": now,
         }
 
-        await self.db.calls.insert_one(call_doc)
+        result = await self.db.calls.insert_one(call_doc)
         await self.db.agents.update_one(
             {"agent_id": agent_profile["agent_id"]},
             {"$set": {"status": "on_call", "current_call_id": call_id}}
@@ -394,8 +394,21 @@ class SimulationEngine:
             "agent_id": agent_profile["agent_id"],
         }
 
-        safe_doc = {k: v for k, v in call_doc.items() if not k.startswith("_")}
-        await self.broadcast({"type": "call_started", "data": safe_doc})
+        # Exclude MongoDB _id and internal fields from broadcast
+        broadcast_doc = {
+            "call_id": call_doc["call_id"],
+            "status": call_doc["status"],
+            "channel": call_doc["channel"],
+            "started_at": call_doc["started_at"],
+            "customer": call_doc["customer"],
+            "agent": call_doc["agent"],
+            "health_score": call_doc["health_score"],
+            "ai_summary": call_doc["ai_summary"],
+            "duration_seconds": 0,
+            "transcript": [],
+            "alerts_triggered": [],
+        }
+        await self.broadcast({"type": "call_started", "data": broadcast_doc})
 
     async def _end_call(self, call_id):
         if call_id not in self.active_calls:
