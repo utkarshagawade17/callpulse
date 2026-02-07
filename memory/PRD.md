@@ -1,4 +1,4 @@
-# NEXUS - Contact Center Intelligence Platform PRD
+# CallPulse - Contact Center Intelligence Platform PRD
 
 ## Original Problem Statement
 Build a Real-Time Contact Center Voice Analytics Dashboard - an interactive monitoring dashboard simulating a contact center supervisor's view of multiple live voice calls with AI-powered analytics including live transcription, sentiment tracking, escalation alerts, and agent performance metrics.
