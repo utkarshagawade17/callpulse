@@ -160,7 +160,9 @@ async def get_active_calls(request: Request):
     await get_current_user(request)
     calls = await db.calls.find(
         {"status": {"$in": ["active", "ringing", "on_hold", "wrapping_up"]}},
-        {"_id": 0, "transcript": {"$slice": -1}, "_scenario": 0, "_message_index": 0, "_last_message_time": 0, "_created_at": 0}
+        {"_id": 0, "call_id": 1, "status": 1, "channel": 1, "started_at": 1,
+         "customer": 1, "agent": 1, "health_score": 1, "duration_seconds": 1,
+         "ai_summary": 1, "alerts_triggered": 1, "transcript": {"$slice": -1}}
     ).sort("started_at", -1).to_list(50)
     return calls
 
