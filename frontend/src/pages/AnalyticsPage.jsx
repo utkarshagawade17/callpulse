@@ -90,7 +90,7 @@ export default function AnalyticsPage() {
             <BarChart2 className="w-4 h-4 text-[#3B82F6]" />
             <span className="text-sm font-heading font-bold">Call Volume by Hour</span>
           </div>
-          <div className="h-56">
+          <div className="h-56" style={{ minWidth: '0' }}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={hourlyData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" />
