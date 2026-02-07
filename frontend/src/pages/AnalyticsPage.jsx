@@ -109,7 +109,7 @@ export default function AnalyticsPage() {
             <TrendingUp className="w-4 h-4 text-[#10B981]" />
             <span className="text-sm font-heading font-bold">Sentiment Trend</span>
           </div>
-          <div className="h-56">
+          <div className="h-56" style={{ minWidth: '0' }}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={hourlyData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" />
@@ -128,7 +128,7 @@ export default function AnalyticsPage() {
             <PieIcon className="w-4 h-4 text-[#F59E0B]" />
             <span className="text-sm font-heading font-bold">Issue Distribution</span>
           </div>
-          <div className="h-56">
+          <div className="h-56" style={{ minWidth: '0' }}>
             {issueData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -162,7 +162,7 @@ export default function AnalyticsPage() {
             <Users className="w-4 h-4 text-[#8B5CF6]" />
             <span className="text-sm font-heading font-bold">Agent Performance</span>
           </div>
-          <div className="h-56">
+          <div className="h-56" style={{ minWidth: '0' }}>
             {agentData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={agentData} layout="vertical">
