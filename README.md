@@ -7,7 +7,94 @@
 [![AI Powered](https://img.shields.io/badge/AI-OpenAI%20GPT--5.2-10B981?style=for-the-badge)]()
 
 ---
+## Screenshots
 
+### Login & Authentication
+<img width="1423" alt="CallPulse Login" src="https://github.com/user-attachments/assets/b44f7b05-8391-46dd-b76c-c6180eb36714" />
+
+*Supervisor login with Google OAuth — dark command-center theme*
+
+<img width="1278" alt="Google OAuth" src="https://github.com/user-attachments/assets/cae42815-e26b-494b-8fd8-0d714b8e7040" />
+
+*Google sign-in flow for secure supervisor authentication*
+
+---
+
+### Live Monitor Dashboard
+<img width="1461" alt="Dashboard" src="https://github.com/user-attachments/assets/e42b53f0-173d-4ec8-9012-3d09280bbbec" />
+
+*Real-time dashboard with KPIs, alert banners, and active call grid*
+
+<img width="720" alt="Dashboard KPIs" src="https://github.com/user-attachments/assets/5b0561b7-b214-4ac9-995f-2f2c73799aa4" />
+
+*Live call cards showing agent, customer, transcript preview, and sentiment scores*
+
+---
+
+### Call Deep-Dive
+*Full transcript view with live sentiment chart, AI insights, and supervisor actions*
+<img width="1458" alt="Call Details" src="https://github.com/user-attachments/assets/16949f64-49d3-4dc7-b697-2d1c941b0c67" />
+*Call card with "View Details" action and sentiment indicator*
+
+<img width="305" alt="Supervisor Actions" src="https://github.com/user-attachments/assets/4cd7ef07-def2-4923-9401-34a1bae98f3d" />
+
+<img width="735" alt="Call Card Hover" src="https://github.com/user-attachments/assets/e4e45e5b-7412-463c-9d3b-be8dc4227490" />
+
+
+---
+
+### AI Insights & Actions
+*Flag, transfer, and add notes to any active call*
+
+<img width="407" alt="Sentiment Chart" src="https://github.com/user-attachments/assets/d39fb51f-a326-4279-83a8-34f53bf72fda" />
+
+*Real-time sentiment chart tracking emotional arc of conversation*
+
+<img width="428" alt="Alert Types" src="https://github.com/user-attachments/assets/fea8d38b-1dda-4da1-b6dd-e5f5536ab94a" />
+
+
+
+---
+
+### Alerts Panel
+
+*AI-detected alerts: churn risk, escalation requests, compliance issues*
+*Critical and warning alerts with acknowledge/resolve actions*
+
+<img width="736" alt="Analytics Charts" src="https://github.com/user-attachments/assets/63aa7d6f-1ca2-42fd-a906-a1be745607e6" />
+
+
+*Critical and warning alerts with acknowledge/resolve actions*
+
+---
+
+### Analytics Dashboard
+<img width="1445" alt="Alerts" src="https://github.com/user-attachments/assets/0778c9fd-754a-4048-b44a-ba580d788474" />
+
+*Call volume, sentiment trends, issue distribution, and agent performance charts*
+*Hourly call patterns and agent leaderboard*
+
+<img width="735" alt="Simulation" src="https://github.com/user-attachments/assets/c638b59f-6834-47c1-a65d-a03d695405b6" />
+
+
+---
+
+### Simulation Controls
+*Configure call engine and trigger demo scenarios (angry customer, escalation, compliance)*
+
+<img width="1466" alt="Analytics" src="https://github.com/user-attachments/assets/4285711f-dd03-4f3d-b2fa-236f1131c31a" />
+
+
+
+
+
+
+
+
+
+
+
+---
 ## Overview
 
 **CallPulse** simulates a contact center supervisor's command center — monitoring 12+ simultaneous live voice calls with AI-driven analytics. It demonstrates applied AI in an enterprise contact center context, directly relevant to Microsoft Dynamics 365 Contact Center capabilities.
