@@ -467,11 +467,11 @@ async def websocket_live(websocket: WebSocket):
 async def startup():
     global simulation
     logger.info("Starting application...")
-    # Clean old active calls from previous runs
-    await db.calls.update_many(
-        {"status": {"$in": ["active", "ringing", "on_hold", "wrapping_up"]}},
-        {"$set": {"status": "ended", "ended_at": datetime.now(timezone.utc).isoformat()}}
+    # Clean old simulation data
+    await db.calls.delete_many(
+        {"status": {"$in": ["active", "ringing", "on_hold", "wrapping_up"]}}
     )
+    await db.alerts.delete_many({"status": "active"})
     # Start simulation automatically
     simulation = SimulationEngine(db, ws_manager.broadcast)
     await simulation.start()
