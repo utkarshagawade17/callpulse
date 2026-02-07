@@ -116,7 +116,7 @@ export default function GlobalNav() {
         </Button>
         <div className="flex items-center gap-2 ml-3">
           <Phone className="w-4 h-4 text-[#3B82F6]" />
-          <span className="font-heading text-sm font-bold">NEXUS</span>
+          <span className="font-heading text-sm font-bold">CallPulse</span>
         </div>
       </div>
 
