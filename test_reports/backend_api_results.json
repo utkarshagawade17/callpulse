@@ -1,0 +1,199 @@
+{
+  "timestamp": "2026-02-07T06:54:05.863938",
+  "summary": {
+    "total_tests": 21,
+    "passed_tests": 21,
+    "success_rate": 100.0
+  },
+  "test_results": [
+    {
+      "test": "Get Current User",
+      "endpoint": "auth/me",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/auth/me"
+    },
+    {
+      "test": "Get Active Calls",
+      "endpoint": "calls/active",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/calls/active"
+    },
+    {
+      "test": "Get Call History",
+      "endpoint": "calls/history",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/calls/history"
+    },
+    {
+      "test": "Get Call Detail",
+      "endpoint": "calls/CALL-20260207-30B706",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/calls/CALL-20260207-30B706"
+    },
+    {
+      "test": "Get Call Transcript",
+      "endpoint": "calls/CALL-20260207-30B706/transcript",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/calls/CALL-20260207-30B706/transcript"
+    },
+    {
+      "test": "Perform Supervisor Action",
+      "endpoint": "calls/CALL-20260207-30B706/action",
+      "method": "POST",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/calls/CALL-20260207-30B706/action"
+    },
+    {
+      "test": "Get Active Alerts",
+      "endpoint": "alerts",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/alerts"
+    },
+    {
+      "test": "Get Alert History",
+      "endpoint": "alerts/history",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/alerts/history"
+    },
+    {
+      "test": "Acknowledge Alert",
+      "endpoint": "alerts/ALT-044ed48d/acknowledge",
+      "method": "POST",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/alerts/ALT-044ed48d/acknowledge"
+    },
+    {
+      "test": "Resolve Alert",
+      "endpoint": "alerts/ALT-044ed48d/resolve",
+      "method": "POST",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/alerts/ALT-044ed48d/resolve"
+    },
+    {
+      "test": "Get All Agents",
+      "endpoint": "agents",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/agents"
+    },
+    {
+      "test": "Get Agent Detail",
+      "endpoint": "agents/AGT-001",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/agents/AGT-001"
+    },
+    {
+      "test": "Get Agent Calls",
+      "endpoint": "agents/AGT-001/calls",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/agents/AGT-001/calls"
+    },
+    {
+      "test": "Get Realtime Analytics",
+      "endpoint": "analytics/realtime",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/analytics/realtime"
+    },
+    {
+      "test": "Get Hourly Analytics",
+      "endpoint": "analytics/hourly",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/analytics/hourly"
+    },
+    {
+      "test": "Get Agent Analytics",
+      "endpoint": "analytics/agents",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/analytics/agents"
+    },
+    {
+      "test": "Get Issue Analytics",
+      "endpoint": "analytics/issues",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/analytics/issues"
+    },
+    {
+      "test": "Export Analytics",
+      "endpoint": "analytics/export",
+      "method": "POST",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/analytics/export"
+    },
+    {
+      "test": "Get Simulation Status",
+      "endpoint": "simulation/status",
+      "method": "GET",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/simulation/status"
+    },
+    {
+      "test": "Update Simulation Config",
+      "endpoint": "simulation/config",
+      "method": "POST",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/simulation/config"
+    },
+    {
+      "test": "Trigger Simulation Event",
+      "endpoint": "simulation/trigger-event",
+      "method": "POST",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "url": "https://contact-ai-hub-1.preview.emergentagent.com/api/simulation/trigger-event"
+    }
+  ]
+}
