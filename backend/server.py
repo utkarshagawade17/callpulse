@@ -491,6 +491,17 @@ async def websocket_live(websocket: WebSocket):
 async def startup():
     global simulation
     logger.info("Starting application...")
+    # Create indexes for production performance
+    await db.calls.create_index("call_id")
+    await db.calls.create_index("status")
+    await db.calls.create_index("started_at")
+    await db.calls.create_index([("status", 1), ("started_at", -1)])
+    await db.alerts.create_index("alert_id")
+    await db.alerts.create_index("status")
+    await db.agents.create_index("agent_id")
+    await db.users.create_index("user_id")
+    await db.users.create_index("email")
+    await db.user_sessions.create_index("session_token")
     # Clean old simulation data
     await db.calls.delete_many(
         {"status": {"$in": ["active", "ringing", "on_hold", "wrapping_up"]}}
